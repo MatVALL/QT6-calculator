@@ -1,18 +1,20 @@
-#include <QApplication>
 #include "calculator.h"
 
-using namespace std;
-
-int main(int argc, char *argv[])
+template <>
+void Calculator<int(int, int)>::addDigit(uint8_t digit)
 {
-    QApplication app(argc, argv);
-    CalcWindow *calc = new CalcWindow(NULL);
+    this->current_result = this->current_result*10 + digit*(this->current_result >= 0? 1:-1);
+    std::cout << this->current_result << " " << this->saved_result <<std::endl;
+}
 
-    for (int i = 0; i < 10; i++) {
-        QObject::connect(calc->m_button[i], &QPushButton::clicked,
-                         calc,
-            [=]() { calc->somethingHapenned(calc, i);});
-    }
-    calc->show();
+template <>
+void Calculator<int(int, int)>::useOperator() {
+    saved_result = (*op)(current_result, saved_result);
+    current_result = 0;
+    std::cout<< saved_result << std::endl;
+}
 
-    return app.exec();}
+template <>
+void Calculator<int(int, int)>::setOperator(int func(int, int)) {
+    this->op = func;
+}
