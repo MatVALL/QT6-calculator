@@ -16,6 +16,7 @@ class Calculator {
         void addDigit(uint8_t digit);
         void useOperator();
         void setOperator(const Operator* func);
+        int getResult();
 };
 
 #endif

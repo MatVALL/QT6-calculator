@@ -17,19 +17,28 @@ CalcWindow::CalcWindow(QWidget *parent) : QWidget(parent)
    digits[0] = new DigitButton(calc, this, 0);
    digits[0]->setGeometry(100,200, 100, 50);
    clear = new ClearButton(calc, this);
-   clear->setGeometry(0,200, 100, 50);
+   clear->setGeometry(200, 0, 100, 50);
    plus = new PlusButton(calc, this);
    plus->setGeometry(200,200, 100, 50);
    equal = new EqualButton(calc, this);
    equal->setGeometry(100,200, 100, 50);
+
+   /**/
+   result = new QLabel(this);
+   result->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+   result->setText("0");
+   result->setAlignment(Qt::AlignBottom | Qt::AlignRight);
+   result->setGeometry(0,0,200, 50);
 }
 
 void CalcWindow::onDigit(DigitButton* w)
 {
     w->on_click();
+   this->result->setText(QString::fromStdString(std::to_string(this->calc.getResult())));
 }
 
 void CalcWindow::onOp(CalcButton* w)
 {
     w->on_click();
+   this->result->setText(QString::fromStdString(std::to_string(this->calc.getResult())));
 }
