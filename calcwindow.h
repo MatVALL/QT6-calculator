@@ -12,7 +12,7 @@ class CalcWindow : public QWidget
 {
     Q_OBJECT
     public:
-      Calculator<int (int, int)> calc;
+      Calculator<int64_t (int64_t, int64_t)> calc;
       DigitButton *digits[10];
       PlusButton *plus;
       ClearButton *clear;

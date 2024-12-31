@@ -2,12 +2,12 @@
 #include <assert.h>
 
 /* {{{ CalcButton*/
-CalcButton::CalcButton(Calculator<int(int,int)> &c, const QString &text="?", QWidget *parent = nullptr):
+CalcButton::CalcButton(Calculator<int64_t(int64_t,int64_t)> &c, const QString &text="?", QWidget *parent = nullptr):
                        QPushButton(text, parent), calculator(c) {}
 /* }}} CalcButton */
 /* {{{ DigitButton*/
 
-DigitButton::DigitButton(Calculator<int(int,int)>& c, QWidget* parent=nullptr, uint8_t digit=0):
+DigitButton::DigitButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent=nullptr, uint8_t digit=0):
                          CalcButton::CalcButton(c, QString::fromStdString(std::to_string(digit)),
                                  parent), digit(digit)
 {
@@ -23,17 +23,17 @@ void DigitButton::on_click()
 /* }}} DigitButton */
 /* {{{ PlusButton */
 
-PlusButton::PlusButton(Calculator<int(int,int)>& c, QWidget* parent):
+PlusButton::PlusButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent):
                        CalcButton::CalcButton(c, "+", parent) {}
 
 void PlusButton::on_click()
 {
-    this->calculator.setOperator([](int b, int c){return b+c;});
+    this->calculator.setOperator([](int64_t b, int64_t c){return b+c;});
 }
 /* }}} */
 /* {{{ EqualButton */
 
-EqualButton::EqualButton(Calculator<int(int,int)>& c, QWidget* parent):
+EqualButton::EqualButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent):
                          CalcButton::CalcButton(c, "=", parent) {}
 void EqualButton::on_click()
 {
@@ -43,12 +43,13 @@ void EqualButton::on_click()
 /* }}} */
 /* {{{ ClearButton */
 
-ClearButton::ClearButton(Calculator<int(int,int)>& c, QWidget* parent):
+ClearButton::ClearButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent):
                          CalcButton::CalcButton(c, "C", parent) {}
 void ClearButton::on_click()
 {
-    this->calculator.setOperator([](int a, int b){(void)a; (void)b;return 0;});
+    this->calculator.setOperator([](int64_t a, int64_t b){(void)a; (void)b;return (int64_t)0;});
     this->calculator.useOperator();
 }
 
-/* }}} */
+ /* }}} */
+
