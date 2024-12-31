@@ -32,7 +32,7 @@ CalcWindow::CalcWindow(QWidget *parent) : QWidget(parent)
    result->setFrameStyle(QFrame::Panel /*| QFrame::Sunken*/);
    result->setText("0");
    result->setAlignment(Qt::AlignBottom | Qt::AlignRight);
-   result->setGeometry(0,0,200, 50);
+   result->setGeometry(0,0,300, 50);
 }
 
 void CalcWindow::onDigit(DigitButton* w)
