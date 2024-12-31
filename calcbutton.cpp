@@ -31,6 +31,16 @@ void PlusButton::on_click()
     this->calculator.setOperator([](int64_t b, int64_t c){return b+c;});
 }
 /* }}} */
+/* {{{ MinusButton */
+
+MinusButton::MinusButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent):
+                       CalcButton::CalcButton(c, "-", parent) {}
+
+void MinusButton::on_click()
+{
+    this->calculator.setOperator([](int64_t b, int64_t c){return c-b;});
+}
+/* }}} */
 /* {{{ EqualButton */
 
 EqualButton::EqualButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent):

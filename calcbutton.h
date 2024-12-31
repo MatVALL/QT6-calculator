@@ -37,4 +37,10 @@ class ClearButton: public CalcButton {
         void on_click();
 };
 
+class MinusButton: public CalcButton {
+    public:
+        MinusButton(Calculator<int64_t(int64_t, int64_t)>&, QWidget*);
+        void on_click();
+};
+
 #endif
