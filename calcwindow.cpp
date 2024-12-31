@@ -38,11 +38,11 @@ CalcWindow::CalcWindow(QWidget *parent) : QWidget(parent)
 void CalcWindow::onDigit(DigitButton* w)
 {
     w->on_click();
-   this->result->setText(QString::fromStdString(std::to_string(this->calc.getResult())));
+   this->result->setText(QString::fromStdString(this->calc.getResult()));
 }
 
 void CalcWindow::onOp(CalcButton* w)
 {
     w->on_click();
-   this->result->setText(QString::fromStdString(std::to_string(this->calc.getResult())));
+   this->result->setText(QString::fromStdString(this->calc.getResult()));
 }

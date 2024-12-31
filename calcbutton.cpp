@@ -11,8 +11,9 @@ DigitButton::DigitButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* paren
                          CalcButton::CalcButton(c, QString::fromStdString(std::to_string(digit)),
                                  parent), digit(digit)
 {
-    /* TODO: throw exception */
-    assert(digit < 10);
+    if (digit < 0 || digit >= 10) {
+        throw(std::invalid_argument("expected digit"));
+    }
 };
 
 void DigitButton::on_click()
@@ -28,7 +29,13 @@ PlusButton::PlusButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* parent)
 
 void PlusButton::on_click()
 {
-    this->calculator.setOperator([](int64_t b, int64_t c){return b+c;});
+    this->calculator.setOperator([](int64_t b, int64_t c)->int64_t {
+                if (INT64_MAX - b <= c) {
+                    throw(std::overflow_error("invalid addition"));
+                    return 0;
+                }
+                return b+c;
+            });
 }
 /* }}} */
 /* {{{ TimesButton */
@@ -38,7 +45,13 @@ TimesButton::TimesButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* paren
 
 void TimesButton::on_click()
 {
-    this->calculator.setOperator([](int64_t b, int64_t c){return b*c;});
+    this->calculator.setOperator([](int64_t b, int64_t c) -> int64_t{
+            if (INT64_MAX / (b-1) <= c) {
+                throw(std::overflow_error("invalid multiplication"));
+                return 0;
+            }
+            return b*c;
+            });
 }
 /* }}} */
 /* {{{ MinusButton */
@@ -48,7 +61,13 @@ MinusButton::MinusButton(Calculator<int64_t(int64_t,int64_t)>& c, QWidget* paren
 
 void MinusButton::on_click()
 {
-    this->calculator.setOperator([](int64_t b, int64_t c){return c-b;});
+    this->calculator.setOperator([](int64_t b, int64_t c) -> int64_t {
+            if (INT64_MIN + b >= c) {
+                throw(std::overflow_error("invalid substraction"));
+                return 0;
+            }
+            return c-b;
+            });
 }
 /* }}} */
 /* {{{ EqualButton */
@@ -69,6 +88,7 @@ void ClearButton::on_click()
 {
     this->calculator.setOperator([](int64_t a, int64_t b){(void)a; (void)b;return (int64_t)0;});
     this->calculator.useOperator();
+    this->calculator.clearError();
 }
 
  /* }}} */
