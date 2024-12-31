@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
                      calc, [=]() { calc->onOp(calc->equal);});
     QObject::connect(calc->minus, &QPushButton::clicked,
                      calc, [=]() { calc->onOp(calc->minus);});
+    QObject::connect(calc->times, &QPushButton::clicked,
+                     calc, [=]() { calc->onOp(calc->times);});
     calc->show();
 
     return app.exec();}

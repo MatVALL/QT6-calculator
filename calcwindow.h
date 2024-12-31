@@ -15,6 +15,7 @@ class CalcWindow : public QWidget
       Calculator<int64_t (int64_t, int64_t)> calc;
       DigitButton *digits[10];
       PlusButton *plus;
+      TimesButton *times;
       MinusButton *minus;
       ClearButton *clear;
       EqualButton *equal;

@@ -25,6 +25,12 @@ class PlusButton: public CalcButton {
         void on_click();
 };
 
+class TimesButton: public CalcButton {
+    public:
+        TimesButton(Calculator<int64_t(int64_t, int64_t)>&, QWidget*);
+        void on_click();
+};
+
 class EqualButton: public CalcButton {
     public:
         EqualButton(Calculator<int64_t(int64_t, int64_t)>&, QWidget*);
