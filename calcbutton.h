@@ -5,9 +5,9 @@
 
 class CalcButton : public QPushButton {
     public:
-        std::string operation;
+        std::string operation = "?";
         CalcButton(Calculator<int(int, int)>&, const QString &, QWidget *);
-        virtual void on_click() {};
+        virtual void on_click() = 0;
     protected:
         Calculator<int(int,int)> &calculator;
 };
